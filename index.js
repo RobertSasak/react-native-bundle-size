@@ -27,7 +27,7 @@ export default async function iterate(cwd, limit, skip, platform, entryFile) {
             try {
                 await exec('yarn', { cwd })
                 await exec(
-                    `npx react-native bundle --dev false --platform ${platform} --entry-file ${entryFile} --bundle-output ${bundlePath}  --reset-cache`,
+                    `npx react-native bundle --dev false --platform "${platform}" --entry-file "${entryFile}" --bundle-output "${bundlePath}"  --reset-cache`,
                     { cwd },
                 )
                 const { size } = await stat(`${cwd}/${bundlePath}`)

@@ -2,7 +2,7 @@
 
 import meow from 'meow'
 import iterate from './index.js'
-
+import { existsSync } from 'node:fs'
 const cli = meow(
     `
 Usage
@@ -51,6 +51,12 @@ const cwd = cli.input[0]
 
 if (!cwd) {
     cli.showHelp()
+} else if (!existsSync(cwd)) {
+    console.error(`Path does not exists: ${cwd}`)
+} else if (platform !== 'ios' && platform !== 'android') {
+    console.error(`Unknown platform: ${platform}`)
+} else if (!existsSync(cwd + '/' + entryFile)) {
+    console.error(`Entry file does not exists: ${cwd + '/' + entryFile}`)
 } else {
     await iterate(cwd, limit, skip, platform, entryFile)
 }
